@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ragnar’s Riddle Hashtag Shuffler</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #e2e2e2;
+      text-align: center;
+      padding: 40px;
+    }
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      background: #222;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 8px;
+    }
+    #output {
+      margin-top: 30px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🜁 Ragnar’s Riddle Hashtag Shuffler</h1>
+<p>Generate a random hashtag from all 1014 riddles or a specific season.</p>
+
+<button onclick="getRandomAll()">Random (All 1014)</button>
+<button onclick="getRandomSeason()">Random (Choose Season)</button>
+
+<div id="output"></div>
+
+<script>
+  const all = [];
+  for (let i = 1; i <= 1014; i++) {
+    all.push(`#RagnarsRiddles${i}`);
+  }
+
+  function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function getRandomAll() {
+    const tag = getRandom(all);
+    document.getElementById("output").innerHTML =
+      `<a href="https://www.linkedin.com/feed/hashtag/${tag.slice(1)}/" target="_blank">${tag}</a>`;
+  }
+
+  function getRandomSeason() {
+    const season = prompt("Enter season number (1–13):");
+    if (!season || isNaN(season)) return;
+    const s = parseInt(season);
+
+    const start = (s - 1) * 78 + 1;
+    const end = s * 78;
+
+    if (start < 1 || end > 1014) {
+      alert("Invalid season.");
+      return;
+    }
+
+    const seasonList = [];
+    for (let i = start; i <= end; i++) {
+      seasonList.push(`#RagnarsRiddles${i}`);
+    }
+
+    const tag = getRandom(seasonList);
+    document.getElementById("output").innerHTML =
+      `<a href="https://www.linkedin.com/feed/hashtag/${tag.slice(1)}/" target="_blank">${tag}</a>`;
+  }
+</script>
+
+</body>
+</html>
