@@ -4,28 +4,42 @@
   <meta charset="UTF-8">
   <title>Ragnar’s Riddle Hashtag Shuffler</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0a0a0a;
-      color: #e2e2e2;
-      text-align: center;
-      padding: 40px;
-    }
-    button {
-      padding: 12px 20px;
-      margin: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      background: #222;
-      color: white;
-      border: 1px solid #555;
-      border-radius: 8px;
-    }
-    #output {
-      margin-top: 30px;
-      font-size: 26px;
-      font-weight: bold;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #e2e2e2;
+  text-align: center;
+  padding: 40px;
+}
+
+button {
+  padding: 16px 24px;       /* bigger buttons */
+  margin: 10px;
+  font-size: 20px;          /* bigger text */
+  cursor: pointer;
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 10px;
+}
+
+#output {
+  margin-top: 30px;
+  font-size: 36px;          /* larger for readability */
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  #output {
+    font-size: 40px;        /* extra large on phones */
+  }
+  button {
+    width: 100%;            /* stack buttons on mobile */
+    font-size: 22px;
+    padding: 18px 0;
+  }
+}
   </style>
 </head>
 <body>
@@ -39,6 +53,17 @@
 <div id="output"></div>
 
 <script>
+  function showTag(tag) {
+  document.getElementById("output").innerHTML =
+    `<a href="https://www.linkedin.com/feed/hashtag/${tag.slice(1)}/" target="_blank">${tag}</a>
+     <br><button onclick="copyTag('${tag}')">Copy</button>`;
+}
+
+function copyTag(tag) {
+  navigator.clipboard.writeText(tag).then(() => {
+    alert(tag + " copied to clipboard! Paste into LinkedIn.");
+  });
+}
   const all = [];
   for (let i = 1; i <= 1014; i++) {
     all.push(`#RagnarsRiddles${i}`);
